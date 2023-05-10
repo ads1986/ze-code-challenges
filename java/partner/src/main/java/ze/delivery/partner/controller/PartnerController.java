@@ -3,6 +3,7 @@ package ze.delivery.partner.controller;
 import jakarta.validation.Valid;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ze.delivery.partner.controller.mapper.ControllerMapper;
 import ze.delivery.partner.controller.request.LocationRequest;
@@ -24,6 +25,7 @@ public class PartnerController {
     private SavePartner savePartner;
 
     @PostMapping("/partner")
+    @ResponseStatus(HttpStatus.CREATED)
     private void save( @Valid @RequestBody PartnerRequest request){
         Partner partner = mapper.toPartner(request);
         savePartner.save(partner);

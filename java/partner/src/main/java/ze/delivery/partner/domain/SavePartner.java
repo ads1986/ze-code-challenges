@@ -17,10 +17,6 @@ public class SavePartner {
     private PartnerRepository repository;
 
     public void save(Partner partner){
-
-
-
-
         PartnerEntity entity = mapper.toPartner(partner);
         repository.save(entity);
     }
