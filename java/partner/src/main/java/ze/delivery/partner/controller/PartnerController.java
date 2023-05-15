@@ -33,6 +33,7 @@ public class PartnerController {
 
     @GetMapping("/partner")
     @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
     private PartnerResponse get(LocationRequest request){
         Location location = mapper.toLocation(request);
         Partner partner = searchPartner.search(location);

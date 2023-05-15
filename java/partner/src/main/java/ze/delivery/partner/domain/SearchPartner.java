@@ -30,10 +30,10 @@ public class SearchPartner {
 
             if (StringUtils.isNoneBlank(location.getLatitude()) && StringUtils.isNoneBlank(location.getLongitude())) {
 
-                entity = repository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+                //entity = repository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
 
                 if (entity.isPresent()) {
-                    return mapper.toPartner(entity.get());
+                    //return mapper.toPartner(entity.get());
                 }
             } else {
 

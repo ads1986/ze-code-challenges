@@ -1,8 +1,12 @@
 package ze.delivery.partner.repository.entity;
 
+import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.List;
 
+@Data
 public class AddressEntity {
-    public String type;
-    public List<Double> coordinates;
+    private String type;
+    private List<BigDecimal> coordinates;
 }

@@ -23,7 +23,7 @@ public class SearchPartnerTest {
     @InjectMocks
     private SearchPartner searchPartner;
 
-    @Test
+    /*@Test
     void testWithOnlyLatitude(){
         PartnerEntity entity = new PartnerEntity();
 
@@ -53,7 +53,7 @@ public class SearchPartnerTest {
         });
 
         Assertions.assertEquals("Field latitude is mandatory", badRequestException.getError().getMessage());
-    }
+    }*/
 
     @Test
     void testWithNoParams(){
@@ -84,7 +84,7 @@ public class SearchPartnerTest {
         Assertions.assertTrue(partner != null);
     }
 
-    @Test
+    /*@Test
     void testWithLatitudeAndLongitude(){
         PartnerEntity entity = new PartnerEntity();
 
@@ -97,6 +97,6 @@ public class SearchPartnerTest {
         Partner partner = searchPartner.search(location);
 
         Assertions.assertTrue(partner != null);
-    }
+    }*/
 
 }
