@@ -6,6 +6,9 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MongoDBContainer;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 @SpringBootTest(
         classes = PartnerApplication.class,
@@ -15,12 +18,18 @@ import org.testcontainers.containers.MongoDBContainer;
 @ActiveProfiles("test")
 public abstract class AbstractIntegrationTest {
 
-    static MongoDBContainer mongo = new MongoDBContainer("mongo:4.4.2");
+    private static final String PATH_JSON_FILES = "src/test/resources/json/%s.json";
 
+    static MongoDBContainer mongo = new MongoDBContainer("mongo:4.4.2");
 
     @DynamicPropertySource
     static void mongoProperties(DynamicPropertyRegistry registry) {
         mongo.start();
         registry.add("spring.data.mongodb.uri", mongo::getReplicaSetUrl);
     }
+	protected static String readFileAsString(String fileName)throws Exception {
+        String file = String.format(PATH_JSON_FILES, fileName);
+        return new String(Files.readAllBytes(Paths.get(file)));
+    }
+
 }
