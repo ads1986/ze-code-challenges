@@ -1,6 +1,17 @@
 package ze.delivery.partner.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import ze.delivery.partner.repository.entity.PartnerEntity;
 
-public interface PartnerRepository extends MongoRepository<PartnerEntity, String> {}
+import java.math.BigDecimal;
+import java.util.List;
+
+public interface PartnerRepository {
+    PartnerEntity findById(String id);
+    PartnerEntity findByLatitudeAndLongitude(BigDecimal latitude, BigDecimal longitude);
+
+    void save(PartnerEntity entity);
+
+    void saveAll(List<PartnerEntity> entities);
+
+    void dropCollection(String collectionName);
+}

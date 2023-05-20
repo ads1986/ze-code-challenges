@@ -5,15 +5,15 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ze.delivery.partner.domain.exception.BadRequestException;
+import ze.delivery.partner.domain.exception.NotFoundException;
 import ze.delivery.partner.domain.mapper.DomainMapper;
 import ze.delivery.partner.domain.model.Location;
 import ze.delivery.partner.domain.model.Partner;
 import ze.delivery.partner.repository.PartnerRepository;
 import ze.delivery.partner.repository.entity.PartnerEntity;
 
-import java.util.Optional;
-
-import static ze.delivery.partner.domain.exception.DomainException.MANDATORY_FIELD;
+import static ze.delivery.partner.domain.exception.BadRequestException.MANDATORY_FIELD;
+import static ze.delivery.partner.domain.exception.NotFoundException.NOT_FOUND_ENTITY;
 
 @Component
 public class SearchPartner {
@@ -24,43 +24,48 @@ public class SearchPartner {
 
     public Partner search(Location location) {
 
-        Optional<PartnerEntity> entity = null;
+        Partner partner = findById(location);
 
-        try {
+        if (partner == null)
+            return findByLatitudeAndLongitude(location);
 
-            if (StringUtils.isNoneBlank(location.getLatitude()) && StringUtils.isNoneBlank(location.getLongitude())) {
+        return partner;
+    }
 
-                //entity = repository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+    private Partner findById(Location location){
+        if (StringUtils.isNoneBlank(location.getId())) {
+            PartnerEntity entity = repository.findById(location.getId());
 
-                if (entity.isPresent()) {
-                    //return mapper.toPartner(entity.get());
-                }
-            } else {
-
-                if (StringUtils.isBlank(location.getLatitude()) && StringUtils.isNotBlank(location.getLongitude())) {
-                    throw new BadRequestException(MANDATORY_FIELD, "latitude");
-                }
-
-                if (StringUtils.isBlank(location.getLongitude()) && StringUtils.isNotBlank(location.getLatitude())) {
-                    throw new BadRequestException(MANDATORY_FIELD, "longitude");
-                }
-
-                if (StringUtils.isNoneBlank(location.getId())) {
-
-                    entity = repository.findById(location.getId());
-
-                    if (entity.isPresent()) {
-                        return mapper.toPartner(entity.get());
-                    }
-                } else {
-                    throw new BadRequestException(MANDATORY_FIELD, "id");
-                }
+            if (entity != null) {
+                return mapper.toPartner(entity);
             }
 
-        } catch (BadRequestException e) {
-            throw e;
+            throw new NotFoundException(NOT_FOUND_ENTITY, "Partner");
         }
 
         return null;
     }
+
+    private Partner findByLatitudeAndLongitude(Location location) {
+        if (location.getLatitude() == null && location.getLongitude() != null) {
+            throw new BadRequestException(MANDATORY_FIELD, "latitude");
+        }
+
+        if (location.getLongitude() == null && location.getLatitude() != null) {
+            throw new BadRequestException(MANDATORY_FIELD, "longitude");
+        }
+
+        if (location.getLongitude() == null && location.getLatitude() == null) {
+            throw new BadRequestException(MANDATORY_FIELD, "id");
+        }
+
+        PartnerEntity entity = repository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+
+        if (entity != null) {
+            return mapper.toPartner(entity);
+        }
+
+        throw new NotFoundException(NOT_FOUND_ENTITY, "Partner");
+    }
+
 }

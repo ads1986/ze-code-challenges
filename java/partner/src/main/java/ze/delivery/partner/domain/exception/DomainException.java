@@ -2,8 +2,6 @@ package ze.delivery.partner.domain.exception;
 
 public class DomainException extends RuntimeException {
 
-    public static final String MANDATORY_FIELD = "Field %s is mandatory";
-
     private Error error;
 
     public DomainException(Error error) {

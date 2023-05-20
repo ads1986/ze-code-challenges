@@ -14,6 +14,5 @@ public interface ControllerMapper {
     Location toLocation(LocationRequest request);
     PartnerResponse toPartnerResponse(Partner partner);
     ResponseError toResponseError(Error error);
-
     Partner toPartner(PartnerRequest request);
 }

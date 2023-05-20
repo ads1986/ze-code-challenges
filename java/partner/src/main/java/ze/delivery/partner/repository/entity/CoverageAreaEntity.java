@@ -1,12 +1,12 @@
 package ze.delivery.partner.repository.entity;
 
 import lombok.Data;
+import org.bson.types.Decimal128;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Data
 public class CoverageAreaEntity {
     private String type;
-    private List<List<List<List<BigDecimal>>>> coordinates;
+    private List<List<List<List<Decimal128>>>> coordinates;
 }
