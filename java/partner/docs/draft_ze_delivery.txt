@@ -1,0 +1,292 @@
+##########################
+######### Time ###########
+##########################
+
+05/05 
+	16:51 - 17:08 17m
+
+06/05 
+	06:29 - 06:59 30min
+	07:48 - 07:56 8m
+	10:08 - 10:10 2m
+	10:17 - 10:59 42m
+	11:30 - 11:47 17m
+
+	1h 39m
+
+08/05
+	11:30 - 12:15 45m
+	13:49 - 15:04 74m
+	15:26 - 15:33 8m
+	17:01 - 17:30 29m
+
+
+	2h 36m
+
+09/05
+
+	10:29 - 11:48 1h 19m
+	15:45 - 16:30 45m
+	16:45 - 17:01 16m
+
+	2h 20m
+
+	20:37 - 21:27 50m
+
+	
+10/05
+
+	13:53 - 15:18 1h 25m
+
+
+11/05
+
+	13:43 - 15:01 1h 18m
+	15:05 - 15:13 8m
+	16:30 - 17:06 36m
+
+	2h 4m
+
+12/05
+
+	14:13 - 14:28 15m
+	14:37 - 15:07 30m
+
+15/05
+
+	15:20 - 17:41 2h 21m
+
+16/05
+
+	15:18 - 15:28 10m
+	15:32 - 15:42 10m
+
+	15:53 - 16:53 1h
+
+17/05
+
+	14:09 - 14:41 40m
+	14:44 - 15:28 45m
+	15:35 - 16:00 25m
+	17:17 - 17:39 25m
+
+	2h 15m
+
+18/05
+
+	14:00 - 15:30 1h 30m
+	15:40 - 16:00 20m
+	16:17 - 17:00 45m
+
+19/05
+
+	12:11 - 13:11 1h
+	14:44 - 14:55 10m
+
+Total Geral : 20h 28m
+
+20/05
+
+	11:46 - 12:32 45m
+	13:00 - 14:00 1h
+
+21/05
+
+	15:40 - 15:55 15m
+	18:02 - 18:22 20m
+
+Total Geral : 22h 48m
+
+##########################
+######### Tasks ##########
+##########################
+
+
+◼ Database
+
+	• Setup MongoDB local
+		- Run as a docker container
+	• Load previous Json data at the database
+	• Documentation
+		△ Explane how to setup database with Docker
+
+◼ Build Backend App
+
+	• ✓ Generate an app in Spring Initlzr with:
+		△ ✓ Java 17
+		△ ✓ Spring Boot 3
+		△ ✓ Maven
+		△ ✓ Web Support
+		△ ✓ Junit 5 + Mockito
+		△ ✓ Testcontainer
+		△ ✓ Mongodb 
+		△ ✓ Mapstruct 
+
+	• ✓ MongoDB
+		△ Setup configuration db connection
+
+	• ✓ Testcontainer
+		△ ✓ Setup configuration
+
+	• ✓ Exception
+		△ ✓ Create exceptions for status 400, 404 and 500
+		△ ✓ Create a global Exception handler
+
+	• Packeto
+		△ Configure app to be packed into Docker image
+
+	• Documentation
+		△ How to run app local
+		△ How to run tests
+		△ How to deploy the app
+		△ Create diagram
+
+	• Nice to Have
+
+		- Include Kubernetes deployment
+		- Use java modules
+		- Inclusão de logs
+		- Lombok
+		- Spring Profile
+		- Live loading
+
+◼ Create a partner
+
+	• Integration Test
+		- Implement the folowing tests
+			△ id include an empty or null value
+			△ id more the 36 positions
+			△ id include equal or last than 36 positions
+			△ tradingName include an empty or null value
+			△ tradingName more than 500 positions
+			△ tradingName include equal or last than 500 positions
+			△ document include an empty or null value
+			△ document more than 18 positions
+			△ document include invalid value
+			△ document include value folowing the pattern validation
+			△ coverageArea.type include an empty or null value
+			△ coverageArea.type include an invalid type
+			△ coverageArea.coordinates include an invalid coordinate
+			△ coverageArea.coordinates include a valid coordinate
+			△ coverageArea.coordinates more than 500 positions
+			△ address.type include an empty or null value
+			△ address.type include an invalid type
+			△ address.coordinates include an invalid coordinate
+			△ address.coordinates include a valid coordinate
+			△ address.coordinates more than 200 positions
+
+	• Integration Test
+		- Implement the folowing tests
+			△ All field is mandatory
+
+	• Create an endpoint
+
+		- Define the endpoint name
+		- Include Swagger
+		- Create a request Partner endpoint
+			△ All field is mandatory
+			△ id use GUID Version 4 as pattern
+			△ id must have the size limited (36 positions)
+			△ ownerName must have the size limited (200 positions)
+			△ ownerName must be an alphanumeric field
+			△ tradingName must have the size limited (500 positions)
+			△ tradingName must be an alphanumeric field
+			△ document must have the size limited (18 positions)
+			△ document must have a pattern validation 
+			(1432132123891/0001)
+			△ coverageArea.type must be limited (12 positions)
+			△ coverageArea.coordinates must be limited (500 positions)
+			△ address.type must be limited (5 positions)
+			△ address.coordinates must be limited (200 positions)
+
+	• Use Case
+
+		- Implement Save Partner use case 
+		- Create a domain Partner class
+		- Implement the following rules
+			△ Understand GeoJSON Point
+			△ Understand GeoJSON MultiPolygon
+			△ Validate if address GeoJSON Point is correct
+				* Implement a code or use a lib to validate
+				* Return an exception in case is invalid (status 400)
+				* Message must be in the resource properties file
+			△ Validate if coverageArea GeoJSON MultiPolygon is correct
+				* Implement a code or use a lib to validate
+				* Return an exception in case is invalid (status 400)
+				* Message must be in the resource properties file
+		- Use Repository classe to save Partner
+
+	• Repository
+
+		- Create Entity Partner
+		- Create repository Implementation
+			△ Use Mongo db Crud Class
+
+	• Documentation
+		- Explaine how to test the api
+
+	• Nice to Have
+
+		- Include Swagger
+
+◼ Load partner by id:
+
+	• Create an endpoint
+
+		- ✓ Define the endpoint name
+		- ✓  Use the domain Partner class
+		- ✓ Create a request Partner endpoint
+			△ ✓ if no one, latitude or longitude provided, id is 
+
+	• Use Case
+
+		- ✓ Implement Search Partner use case 
+		- ✓ Use Repository classe to find the Partner by id
+
+	• Repository
+
+		- ✓ Use the Entity Partner
+		- ✓ Create repository Implementation
+			△ ✓ Use Mongo DB temp
+
+	• Documentation
+		△ Explaine how to test the api
+
+	• Nice to Have
+		- id must be an alphanumeric field
+		- id must have the size limited (36 positions)
+		- Include Swagger
+		
+◼ Search partner
+
+	• ✓ Create an endpoint
+
+		- ✓ Define the endpoint name
+		- ✓ Create a request Partner endpoint
+			△ ✓ if any, latitude or longitude provided, is mandatory
+			△ ✓ if no one, latitude or longitude provided, id is mandatory
+
+
+	• Use Case
+
+		- ✓ Implement Search Partner use case 
+		- ✓ Use the domain Partner class
+		- ✓ Implement the following rules
+			△ ✓ Understand the most performatic manner to search in Mongo DB
+			△ ✓ Do a query using latitude and longitude in database
+
+	• Repository
+
+		- ✓ Use the Entity Partner
+		- ✓ Create repository Implementation
+			△ ✓ Use Mongo DB temp
+
+	• Documentation
+		- Explaine how to test the api
+
+	• Nice to Have
+		- long must be an numeric field
+		- long must have the size limited (200 positions)
+		- lat must be an numeric field
+		- lat must have the size limited (200 positions)
+		- Include Swagger
